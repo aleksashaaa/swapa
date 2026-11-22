@@ -73,11 +73,11 @@ export async function sendMessage(_prev: ChatState, formData: FormData): Promise
   });
 
   if (error) {
-    return {
-      error:
-        "This conversation is closed. You can still read it, but new messages cannot be sent.",
-    };
-  }
+  console.error("SEND MESSAGE ERROR:", error);
+  return {
+    error: error.message,
+  };
+}
 
   revalidatePath(`/matches/${matchId}`);
   revalidatePath("/chats");

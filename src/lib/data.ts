@@ -68,13 +68,21 @@ export async function getMatch(supabase: SupabaseClient, matchId: string) {
   return data ? sortMatchImages(data as unknown as Match) : null;
 }
 
+
 export async function getMatches(supabase: SupabaseClient) {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("matches")
     .select(MATCH_SELECT)
     .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("GET MATCHES ERROR:", error);
+    throw new Error(error.message);
+  }
+
   return ((data ?? []) as unknown as Match[]).map(sortMatchImages);
 }
+
 
 export async function getMessages(supabase: SupabaseClient, matchId: string) {
   const { data } = await supabase

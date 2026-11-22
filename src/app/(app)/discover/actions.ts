@@ -79,8 +79,9 @@ export async function recordSwipe(
   );
 
   if (error) {
-    return { error: "This item is no longer available. Refresh to see more." };
-  }
+  console.error("SWIPE ERROR:", error);
+  return { error: error.message };
+}
 
   await track(supabase, userId, action === "like" ? "item_liked" : "item_skipped", {
     offering_item_id: offeringItemId,
