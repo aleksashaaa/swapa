@@ -209,3 +209,9 @@ swapa/
   src/lib/               data helpers, types, constants, Supabase clients
   supabase/migrations/   0001–0013
 ```
+
+---
+
+## 8. License
+
+SWAPA is released under the [MIT License](LICENSE). Copyright (c) 2026 SWAPA Team.
