@@ -104,6 +104,17 @@ npm start
 
 ## 5. How to test the main flows
 
+### Automated tests
+
+Unit tests use [Vitest](https://vitest.dev) and live next to the code as `*.test.ts`:
+
+```bash
+npm test            # run once
+npm run test:watch  # re-run on change
+```
+
+They cover pure logic that does not need Supabase, such as how a swipe decides it opened a match (`src/lib/match.ts`). The flows below still need a manual check against a real Supabase project.
+
 ### A. Two-user happy path
 
 1. Open a normal window and sign up as **Alex**.

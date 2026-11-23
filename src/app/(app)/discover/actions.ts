@@ -2,6 +2,8 @@
 
 import { requireOnboarded } from "@/lib/session";
 import { track } from "@/lib/track";
+import { captureServer } from "@/lib/analytics/server";
+import { normalizeItemPair, isOpenMatch, swipeOpenedMatch } from "@/lib/match";
 import { SKIP_COOLDOWN_HOURS } from "@/lib/config";
 import type { Category, Condition } from "@/lib/constants";
 
@@ -66,6 +68,19 @@ export async function recordSwipe(
 ): Promise<SwipeResult> {
   if (!["like", "skip"].includes(action)) return { error: "Unknown action." };
   const { supabase, userId } = await requireOnboarded();
+  const [a, b] = normalizeItemPair(offeringItemId, targetItemId);
+
+  const findMatch = () =>
+    supabase
+      .from("matches")
+      .select("id, status")
+      .eq("item_a_id", a)
+      .eq("item_b_id", b)
+      .maybeSingle();
+
+  // Snapshot the match before the swipe so we can tell whether the
+  // handle_swipe trigger opened it as a result of this like.
+  const { data: matchBefore } = action === "like" ? await findMatch() : { data: null };
 
   const { error } = await supabase.from("swipes").upsert(
     {
@@ -87,16 +102,9 @@ export async function recordSwipe(
 
   if (action === "skip") return { liked: false };
 
-  const a = offeringItemId < targetItemId ? offeringItemId : targetItemId;
-  const b = offeringItemId < targetItemId ? targetItemId : offeringItemId;
-  const { data: match } = await supabase
-    .from("matches")
-    .select("id, status, created_at")
-    .eq("item_a_id", a)
-    .eq("item_b_id", b)
-    .maybeSingle();
+  const { data: match } = await findMatch();
 
-  if (!match || !["active", "reserved"].includes(match.status)) return { liked: true };
+  if (!match || !isOpenMatch(match.status)) return { liked: true };
 
   const { data: target } = await supabase
     .from("items")
@@ -113,8 +121,14 @@ export async function recordSwipe(
     (x, y) => x.position - y.position,
   );
 
-  if (Date.now() - new Date(match.created_at).getTime() < 15_000) {
-    await track(supabase, userId, "match_created", { match_id: match.id });
+  // The trigger already writes the `match_created` row to public.events, so
+  // only forward the event to PostHog here (no second DB insert).
+  if (swipeOpenedMatch(matchBefore?.status, match.status)) {
+    await captureServer(userId, "match_created", {
+      match_id: match.id,
+      offering_item_id: offeringItemId,
+      target_item_id: targetItemId,
+    });
   }
 
   return {

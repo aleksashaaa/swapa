@@ -87,7 +87,17 @@ Put new code where it belongs:
 
 ### Testing Guidelines
 
-The README describes how to test the main flows:
+Run the automated checks before opening a pull request:
+
+```bash
+npm test
+npm run typecheck
+npm run lint
+```
+
+Put new unit tests next to the module they test as `*.test.ts`. Keep logic you want to test in plain functions without Supabase or Next.js imports, like `src/lib/match.ts`.
+
+The README also describes how to test the main flows by hand:
 
 - A. Two-user happy path
 - B. Category isolation
@@ -97,7 +107,7 @@ The README describes how to test the main flows:
 - F. Notifications and preferences
 - G. Blocking and reporting
 - H. Admin moderation
-- 
+
 ## License
 
 By contributing to SWAPA, you agree that your contributions will be licensed under the [MIT License](LICENSE), the same license as the rest of the project.
