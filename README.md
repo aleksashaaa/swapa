@@ -212,6 +212,32 @@ swapa/
 
 ---
 
-## 8. License
+## 8. Platform independence
+
+SWAPA does not depend on any single proprietary platform. Every mandatory component is open source and can be run on your own infrastructure.
+
+| Component | Role | License | Mandatory? | Open / self-hostable alternative |
+| --- | --- | --- | --- | --- |
+| Next.js, React, Tailwind CSS, TypeScript | Application framework | MIT / Apache-2.0 | Yes | Already open source |
+| PostgreSQL | Database | PostgreSQL License | Yes | Already open source |
+| Supabase (Auth, Storage, PostgREST) | Backend services on top of Postgres | Apache-2.0 / MIT | Yes | [Self-host Supabase](https://supabase.com/docs/guides/self-hosting) with Docker, or any compatible stack |
+| PostHog | Product analytics | MIT | **No**, off when `NEXT_PUBLIC_POSTHOG_KEY` is empty | [Self-host PostHog](https://posthog.com/docs/self-host) or leave disabled |
+| Vercel | Hosting | Proprietary | **No** | Any Node.js 20+ host, VM or container (`npm run build && npm start`) |
+
+How this meets the DPG platform-independence requirement:
+
+- **No proprietary mandatory dependency.** The only hosted services used in production (Supabase cloud, Vercel, PostHog cloud) are optional ways to run open-source software. Each has an open-source equivalent listed above.
+- **Your data stays portable.** The whole schema is plain SQL in [`supabase/migrations/`](supabase/migrations), so it runs on any PostgreSQL 15+ with Supabase Auth/Storage. Data can be exported with standard `pg_dump`.
+- **Deployment is not tied to Vercel.** [`vercel.json`](vercel.json) only sets a region and a cron entry. The app is a standard Next.js build and runs with `npm run build && npm start` on any server.
+- **No vendor code in the app logic.** All Supabase access goes through `src/lib/supabase/`, so the backend client can be swapped in one place.
+- **Runs offline-ish for evaluation.** Setting `NEXT_PUBLIC_DEMO=1` starts the app on an in-memory demo backend with no external service (see `src/lib/supabase/demo.ts`).
+
+To self-host: run Supabase locally (`supabase start`), apply the migrations from section 3, copy the local URL and anon key into `.env.local`, then `npm run build && npm start`.
+
+---
+
+## 9. License
 
 SWAPA is released under the [MIT License](LICENSE). Copyright (c) 2026 SWAPA Team.
+
+See also [PRIVACY.md](PRIVACY.md), [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).

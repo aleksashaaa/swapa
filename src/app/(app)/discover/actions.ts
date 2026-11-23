@@ -78,10 +78,7 @@ export async function recordSwipe(
     { onConflict: "actor_id,offering_item_id,target_item_id" },
   );
 
-  if (error) {
-  console.error("SWIPE ERROR:", error);
-  return { error: error.message };
-}
+  if (error) return { error: error.message };
 
   await track(supabase, userId, action === "like" ? "item_liked" : "item_skipped", {
     offering_item_id: offeringItemId,

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+<rect width="600" height="600" fill="#f5e3e3"/>
+<circle cx="300" cy="290" r="210" fill="#c0504d" fill-opacity=".18"/>
+<path d="M230 190 Q300 140 370 190 Q380 250 340 270 L360 450 L300 450 L280 280 Q220 260 230 190Z" fill="#d9534f" stroke="#2b2b2b" stroke-width="5" stroke-linejoin="round"/><path d="M308 400 H356 M304 425 H358" stroke="#fff" stroke-width="6" stroke-opacity=".7"/>
+<text x="300" y="548" font-family="Georgia,serif" font-size="30" text-anchor="middle" fill="#2b2b2b">Wool scarf</text>
+</svg>

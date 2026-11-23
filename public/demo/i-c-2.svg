@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+<rect width="600" height="600" fill="#e6f1e3"/>
+<circle cx="300" cy="290" r="210" fill="#6fb46f" fill-opacity=".18"/>
+<g stroke="#2b2b2b" stroke-width="5"><path d="M190 330 H310 L295 440 H205Z" fill="#c8693f"/><path d="M250 330 Q200 250 230 190 Q270 230 250 330" fill="#4f9a5b"/><path d="M250 330 Q310 270 300 205 Q255 250 250 330" fill="#6fb46f"/><path d="M360 380 H450 L440 450 H370Z" fill="#c8693f"/><path d="M405 380 Q375 340 395 310 Q420 340 405 380" fill="#4f9a5b"/></g>
+<text x="300" y="548" font-family="Georgia,serif" font-size="30" text-anchor="middle" fill="#2b2b2b">Plant pot set</text>
+</svg>
