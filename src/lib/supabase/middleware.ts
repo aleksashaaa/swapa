@@ -10,13 +10,23 @@ const PROTECTED_PREFIXES = [
   "/onboarding",
   "/notifications",
   "/settings",
-  "/account",
   "/users",
   "/admin",
 ];
 const AUTH_PAGES = ["/login", "/signup"];
 
 export async function updateSession(request: NextRequest) {
+  if (process.env.NEXT_PUBLIC_DEMO === "1") {
+    const out = request.cookies.get("demo_out")?.value === "1";
+    const p = request.nextUrl.pathname;
+    if (out && PROTECTED_PREFIXES.some((x) => p.startsWith(x))) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      url.search = `?next=${encodeURIComponent(p)}`;
+      return NextResponse.redirect(url);
+    }
+    return NextResponse.next({ request });
+  }
   let response = NextResponse.next({ request });
   const path = request.nextUrl.pathname;
 

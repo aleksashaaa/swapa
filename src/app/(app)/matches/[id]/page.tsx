@@ -36,12 +36,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     loadMessages(id),
   ]);
 
-  console.log("MATCH DEBUG:", {
-  matchStatus: match.status,
-  blocked,
-  isBlocked: Boolean(blocked),
-});
-const isBlocked = Boolean(blocked);
+  const isBlocked = Boolean(blocked);
   const canMessage = !isBlocked && (match.status === "active" || match.status === "reserved");
   const disabledReason = isBlocked
     ? "Messaging is unavailable because a block is in place."

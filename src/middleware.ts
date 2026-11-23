@@ -15,7 +15,6 @@ export const config = {
     "/onboarding/:path*",
     "/notifications/:path*",
     "/settings/:path*",
-    "/account/:path*",
     "/users/:path*",
     "/admin/:path*",
     "/login",
