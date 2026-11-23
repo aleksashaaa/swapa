@@ -241,3 +241,15 @@ To self-host: run Supabase locally (`supabase start`), apply the migrations from
 SWAPA is released under the [MIT License](LICENSE). Copyright (c) 2026 SWAPA Team.
 
 See also [PRIVACY.md](PRIVACY.md), [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+---
+
+## 10. Sustainable Development Goals
+
+SWAPA supports **SDG 12: Responsible Consumption and Production** (target 12.5: substantially reduce waste through prevention and reuse). Every swap keeps a clothing item, book or household object in use instead of sending it to landfill and removes the need to buy a new one. SWAPA is free and money-free, which also supports **SDG 11 (Sustainable Cities and Communities)** by building local reuse networks.
+
+---
+
+## 11. Ownership and maintainers
+
+SWAPA is owned and maintained by the **SWAPA Team**, a student team. The code is published at <https://github.com/aleksashaaa/swapa> and licensed under the [MIT License](LICENSE) with copyright held by the SWAPA Team. Contributors keep authorship of their commits (see the git history) and agree that contributions are released under the same license (see [CONTRIBUTING.md](CONTRIBUTING.md)).
