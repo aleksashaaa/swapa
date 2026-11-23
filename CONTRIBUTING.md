@@ -97,7 +97,10 @@ The README describes how to test the main flows:
 - F. Notifications and preferences
 - G. Blocking and reporting
 - H. Admin moderation
+- 
+## License
 
+By contributing to SWAPA, you agree that your contributions will be licensed under the [MIT License](LICENSE), the same license as the rest of the project.
 ## Questions
 
 If you have any questions or problems, open an issue in this repository.
