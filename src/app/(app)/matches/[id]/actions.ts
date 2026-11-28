@@ -73,11 +73,9 @@ export async function sendMessage(_prev: ChatState, formData: FormData): Promise
   });
 
   if (error) {
-  console.error("SEND MESSAGE ERROR:", error);
-  return {
-    error: error.message,
-  };
-}
+    console.error("sendMessage failed", { matchId, code: error.code, message: error.message });
+    return { error: "Could not send your message. Please try again." };
+  }
 
   revalidatePath(`/matches/${matchId}`);
   revalidatePath("/chats");
