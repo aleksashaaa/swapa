@@ -76,8 +76,8 @@ export async function getMatches(supabase: SupabaseClient) {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("GET MATCHES ERROR:", error);
-    throw new Error(error.message);
+    console.error("getMatches failed", { code: error.code, message: error.message });
+    throw new Error("Could not load matches.");
   }
 
   return ((data ?? []) as unknown as Match[]).map(sortMatchImages);
